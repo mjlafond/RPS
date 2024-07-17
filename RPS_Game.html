@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+</head>
+<body>
+    <script>
+         function playGame() {
+            let humanScore = 0;
+            let computerScore = 0;
+
+            function getComputerChoice() {
+                const choices = ["Rock", "Paper", "Scissors"];
+                const randomNumber = Math.floor(Math.random() * choices.length);
+                return choices[randomNumber];
+            }
+
+            function getHumanChoice() {
+                const choices = ["Rock", "Paper", "Scissors"];
+                let choice;
+                do {
+                    choice = prompt("Please enter your choice (Rock, Paper, or Scissors):");
+                    if (choice) {
+                        choice = choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase();
+                    }
+                } while (!choices.includes(choice));
+                return choice;
+            }
+
+            function playRound(humanChoice, computerChoice) {
+                humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1).toLowerCase();
+
+                switch (humanChoice) {
+                    case "Rock":
+                        switch (computerChoice) {
+                            case "Rock":
+                                console.log("It's a tie! Both chose Rock.");
+                                break;
+                            case "Paper":
+                                console.log("You lose! Paper beats Rock.");
+                                computerScore++;
+                                break;
+                            case "Scissors":
+                                console.log("You win! Rock beats Scissors.");
+                                humanScore++;
+                                break;
+                        }
+                        break;
+                    case "Paper":
+                        switch (computerChoice) {
+                            case "Rock":
+                                console.log("You win! Paper beats Rock.");
+                                humanScore++;
+                                break;
+                            case "Paper":
+                                console.log("It's a tie! Both chose Paper.");
+                                break;
+                            case "Scissors":
+                                console.log("You lose! Scissors beat Paper.");
+                                computerScore++;
+                                break;
+                        }
+                        break;
+                    case "Scissors":
+                        switch (computerChoice) {
+                            case "Rock":
+                                console.log("You lose! Rock beats Scissors.");
+                                computerScore++;
+                                break;
+                            case "Paper":
+                                console.log("You win! Scissors beat Paper.");
+                                humanScore++;
+                                break;
+                            case "Scissors":
+                                console.log("It's a tie! Both chose Scissors.");
+                                break;
+                        }
+                        break;
+                    default:
+                        console.log("Invalid choice.");
+                }
+            }
+
+            // Play 5 rounds
+            for (let i = 0; i < 5; i++) {
+                const humanChoice = getHumanChoice();
+                const computerChoice = getComputerChoice();
+
+                console.log(`Round ${i + 1}:`);
+                console.log("Human's choice:", humanChoice);
+                console.log("Computer's choice:", computerChoice);
+
+                playRound(humanChoice, computerChoice);
+
+                console.log("Human Score:", humanScore);
+                console.log("Computer Score:", computerScore);
+                console.log("-------------------------");
+            }
+        }
+
+        // Call the playGame function to start playing
+        playGame();
+    </script>
+</body>
+</html>
